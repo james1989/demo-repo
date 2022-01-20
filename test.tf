@@ -13,7 +13,7 @@ data "vsphere_datacenter" "dc" {
 
 # Create datastore
 data "vsphere_datastore" "datastore" {
-  name          = datastore2
+  name          = "datastore2"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
@@ -25,7 +25,7 @@ data "vsphere_resource_pool" "pool" {
 
 # Create network
 data "vsphere_network" "mgmt_lan" {
-  name          = "VM_VLAN1"
+  name          = "VM Network"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
@@ -36,14 +36,14 @@ resource "vsphere_virtual_machine" "testvm" {
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = 1
   memory           = 1024
-  guest_id         = "debian11"
+  guest_id         = "centos7_64Guest"
   network_interface {
     network_id   = data.vsphere_network.mgmt_lan.id
     adapter_type = "vmxnet3"
   }
   disk {
     size             = 5
-    name             = "terraform-testvm.vmdk"
+    label             = "terraform-testvm.vmdk"
     eagerly_scrub    = false
     thin_provisioned = true
   }
