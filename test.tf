@@ -11,6 +11,12 @@ data "vsphere_datacenter" "dc" {
   name = "ha-datacenter"
 }
 
+# Define esxi host/s
+data "vsphere_host" "h1" {
+    name = "myesxi1"
+    datacenter_id = data.vsphere_datacenter.dc.id
+}
+
 # Create datastore
 data "vsphere_datastore" "datastore" {
   name          = "datastore2"
@@ -28,6 +34,51 @@ data "vsphere_network" "mgmt_lan" {
   name          = "VM Network"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
+
+# Create virtual switch
+resource "vsphere_host_virtual_switch" "hvs1" {
+    name = "vSwitch0"
+    mtu = 9000
+    host_system_id = data.vsphere_host.h1.id
+    network_adapters = ["vmnic0"]
+    active_nics = ["vmnic0"]
+}
+
+# Define port group 1
+resource "vsphere_host_port_group" "p1" {
+    name = "VMK-iSCSI-vl-${var.iscsi_vlan1}"
+    virtual_switch_name = vsphere_host_virtual_switch.hvs1.name
+    host_system_id = data.vsphere_host.h1.id
+    vlan_id = var.iscsi_vlan1
+}
+
+# Define port group 2
+resource "vsphere_host_port_group" "p2" {
+    name = "VMK-iSCSI-vl-${var.iscsi_vlan2}"
+    virtual_switch_name = vsphere_host_virtual_switch.hvs1.name
+    host_system_id = data.vsphere_host.h1.id
+    vlan_id = var.iscsi_vlan2
+}
+
+# Define vmkernel adapter1
+resource "vsphere_vnic" "v1" {
+  host = data.vsphere_host.h1.name
+  portgroup = vsphere_host_port_group.p1.name
+  mtu = 9000
+  ipv4 {
+    dhcp = true
+  }
+} 
+
+# Define vmkernel adapter2
+resource "vsphere_vnic" "v1" {
+  host = data.vsphere_host.h1.name
+  portgroup = vsphere_host_port_group.p2.name
+  mtu = 9000
+  ipv4 {
+    dhcp = true
+  }
+} 
 
 # Create Virtual Machine
 resource "vsphere_virtual_machine" "testvm" {
