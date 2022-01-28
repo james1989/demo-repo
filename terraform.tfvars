@@ -1,4 +1,4 @@
-vsphere_server   = "192.168.0.12"
+vsphere_server   = "192.168.1.152"
 vsphere_user     = "root"
 vsphere_password = "Pa$$w0rd"
 iscsi_vlan1 = "2425"
