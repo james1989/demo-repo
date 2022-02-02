@@ -69,9 +69,7 @@ resource "vsphere_vnic" "vmk1" {
   portgroup = vsphere_host_port_group.p1.name
   mtu = 9000
   ipv4 {
-    ip = "10.0.2.16"
-    netmask = "255.255.255.0"
-    gw = "10.0.2.254"
+    dhcp = true
   }
 } 
 
@@ -81,9 +79,7 @@ resource "vsphere_vnic" "vmk2" {
   portgroup = vsphere_host_port_group.p2.name
   mtu = 9000
   ipv4 {
-    ip = "10.0.2.17"
-    netmask = "255.255.255.0"
-    gw = "10.0.2.254"
+    dhcp = true
   }
 } 
 
