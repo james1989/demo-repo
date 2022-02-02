@@ -36,7 +36,7 @@ data "vsphere_network" "mgmt_lan" {
 }
 
 # Define virtual switch
-data "vsphere_host_virtual_switch" "hvs1" {
+resource "vsphere_host_virtual_switch" "hvs1" {
    name = "vSwitch0"
    mtu = 9000
    host_system_id = data.vsphere_host.h1.id
