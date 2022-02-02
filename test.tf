@@ -65,7 +65,7 @@ resource "vsphere_host_port_group" "p2" {
 
 # Define vmkernel adapter1
 resource "vsphere_vnic" "vmk1" {
-  host = data.vsphere_host.h1.name
+  host = data.vsphere_host.h1.id
   portgroup = vsphere_host_port_group.p1.name
   mtu = 9000
   ipv4 {
@@ -75,7 +75,7 @@ resource "vsphere_vnic" "vmk1" {
 
 # Define vmkernel adapter2
 resource "vsphere_vnic" "vmk2" {
-  host = data.vsphere_host.h1.name
+  host = data.vsphere_host.h1.id
   portgroup = vsphere_host_port_group.p2.name
   mtu = 9000
   ipv4 {
