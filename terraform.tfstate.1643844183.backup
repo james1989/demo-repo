@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.1.3",
-  "serial": 90,
+  "serial": 83,
   "lineage": "f84aff10-edb4-ef08-5fce-0cd9f2a1cb42",
   "outputs": {},
   "resources": [
@@ -128,7 +128,15 @@
             "key": "key-vim.host.PortGroup-VMK-iSCSI-vl-2425",
             "name": "VMK-iSCSI-vl-2425",
             "notify_switches": null,
-            "ports": [],
+            "ports": [
+              {
+                "key": "key-vim.host.PortGroup.Port-33554437",
+                "mac_addresses": [
+                  "00:50:56:6c:89:12"
+                ],
+                "type": "host"
+              }
+            ],
             "shaping_average_bandwidth": 0,
             "shaping_burst_size": 0,
             "shaping_enabled": null,
@@ -141,7 +149,8 @@
           "sensitive_attributes": [],
           "private": "bnVsbA==",
           "dependencies": [
-            "data.vsphere_host.h1"
+            "data.vsphere_host.h1",
+            "data.vsphere_datacenter.dc"
           ]
         }
       ]
@@ -195,79 +204,8 @@
           "sensitive_attributes": [],
           "private": "bnVsbA==",
           "dependencies": [
+            "data.vsphere_datacenter.dc",
             "data.vsphere_host.h1"
-          ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "vsphere_vnic",
-      "name": "vmk1",
-      "provider": "provider[\"registry.terraform.io/hashicorp/vsphere\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "distributed_port_group": null,
-            "distributed_switch_port": null,
-            "host": "ha-host",
-            "id": "ha-host_vmk1",
-            "ipv4": [
-              {
-                "dhcp": true,
-                "gw": "",
-                "ip": "",
-                "netmask": ""
-              }
-            ],
-            "ipv6": [],
-            "mac": "00:50:56:6e:22:40",
-            "mtu": 9000,
-            "netstack": "defaultTcpipStack",
-            "portgroup": "VMK-iSCSI-vl-2425"
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "data.vsphere_host.h1",
-            "vsphere_host_port_group.p1"
-          ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "vsphere_vnic",
-      "name": "vmk2",
-      "provider": "provider[\"registry.terraform.io/hashicorp/vsphere\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "distributed_port_group": null,
-            "distributed_switch_port": null,
-            "host": "ha-host",
-            "id": "ha-host_vmk2",
-            "ipv4": [
-              {
-                "dhcp": true,
-                "gw": "",
-                "ip": "",
-                "netmask": ""
-              }
-            ],
-            "ipv6": [],
-            "mac": "00:50:56:6d:d3:5a",
-            "mtu": 9000,
-            "netstack": "defaultTcpipStack",
-            "portgroup": "VMK-iSCSI-vl-2426"
-          },
-          "sensitive_attributes": [],
-          "private": "bnVsbA==",
-          "dependencies": [
-            "data.vsphere_host.h1",
-            "vsphere_host_port_group.p2"
           ]
         }
       ]
