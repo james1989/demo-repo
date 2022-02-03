@@ -81,22 +81,22 @@ resource "vsphere_vnic" "vmk2" {
   }
 } 
 
-# # Create Virtual Machine
-# resource "vsphere_virtual_machine" "testvm" {
-#   name             = "terraform-testvm"
-#   resource_pool_id = data.vsphere_resource_pool.pool.id
-#   datastore_id     = data.vsphere_datastore.datastore.id
-#   num_cpus         = 1
-#   memory           = 1024
-#   guest_id         = "centos7_64Guest"
-#   network_interface {
-#     network_id   = data.vsphere_network.mgmt_lan.id
-#     adapter_type = "vmxnet3"
-#   }
-#   disk {
-#     size             = 5
-#     label             = "terraform-testvm.vmdk"
-#     eagerly_scrub    = false
-#     thin_provisioned = true
-#   }
-# }
+# Create Virtual Machine
+resource "vsphere_virtual_machine" "testvm" {
+  name             = "terraform-testvm"
+  resource_pool_id = data.vsphere_resource_pool.pool.id
+  datastore_id     = data.vsphere_datastore.datastore.id
+  num_cpus         = 1
+  memory           = 1024
+  guest_id         = "centos7_64Guest"
+  network_interface {
+    network_id   = data.vsphere_network.mgmt_lan.id
+    adapter_type = "vmxnet3"
+  }
+  disk {
+    size             = 5
+    label             = "terraform-testvm.vmdk"
+    eagerly_scrub    = false
+    thin_provisioned = true
+  }
+}
