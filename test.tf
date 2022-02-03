@@ -48,8 +48,7 @@ resource "vsphere_host_virtual_switch" "hvs1" {
 # Define port group 1
 resource "vsphere_host_port_group" "p1" {
     name = "VMK-iSCSI-vl-${var.iscsi_vlan1}"
-    #virtual_switch_name = vsphere_host_virtual_switch.hvs1.name
-    virtual_switch_name = "vSwitch0"
+    virtual_switch_name = vsphere_host_virtual_switch.hvs1.name
     host_system_id = data.vsphere_host.h1.id
     vlan_id = var.iscsi_vlan1
 }
@@ -57,8 +56,7 @@ resource "vsphere_host_port_group" "p1" {
 # Define port group 2
 resource "vsphere_host_port_group" "p2" {
     name = "VMK-iSCSI-vl-${var.iscsi_vlan2}"
-    #virtual_switch_name = vsphere_host_virtual_switch.hvs1.name
-    virtual_switch_name = "vSwitch0"
+    virtual_switch_name = vsphere_host_virtual_switch.hvs1.name
     host_system_id = data.vsphere_host.h1.id
     vlan_id = var.iscsi_vlan2
 }
