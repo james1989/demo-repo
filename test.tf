@@ -40,9 +40,9 @@ resource "vsphere_host_virtual_switch" "hvs1" {
    name = "vSwitch0"
    mtu = 9000
    host_system_id = data.vsphere_host.h1.id
-  #  network_adapters = ["vmnic0", "vmnic1"]
-  #  active_nics = ["vmnic0"]
-  #  standby_nics = ["vmnic1"]
+   network_adapters = ["vmnic0"]
+   active_nics = ["vmnic0"]
+   standby_nics = ["vmnic0"]
 }
 
 # Define port group 1
